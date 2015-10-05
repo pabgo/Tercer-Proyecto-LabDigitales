@@ -31,6 +31,6 @@ wire [31:0] aux1;
 assign aux = 32'h00000000;
 assign aux1 = 32'hffffffff;	 
 assign salida = (entrada[`N-1]==0) ? {2'b00,aux[`M-1:0],entrada[`M+`F-1:0],aux[`F-1:0]}:
-					  {2'b11,aux1[`M-1:0],entrada[`M+`F-1:`F],aux1[`F-1:0]};
+					  {2'b11,aux1[`M-1:0],entrada[`M+`F-1:0],aux[`F-1:0]};
 
 endmodule
