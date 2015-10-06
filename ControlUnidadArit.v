@@ -117,6 +117,7 @@ begin
 			muxC = 2'b10;
 			muxZ = 3'b101;
 			en1 = 1;
+
 			en4 = 1;
 			estadosig = result;
 			end
@@ -124,8 +125,8 @@ begin
 		result:
 			begin
 			estadosig = espera;
-			en3 = 1;
 			resultadolisto = 1;
+			en3 = 1;
 			end
 			 
 		default: 
