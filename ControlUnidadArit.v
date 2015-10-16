@@ -36,7 +36,8 @@ localparam [2:0] // Codificación de los estados o etiquetas
 	oper3 = 3'b011,
 	oper4 = 3'b100,
 	oper5 = 3'b101,
-	result = 3'b110;
+	oper6 = 3'b110,
+	result = 3'b111;
 
 reg [2:0] estadoactual, estadosig; // Reg, estado actual y siguiente
 
@@ -117,7 +118,12 @@ begin
 			muxC = 2'b10;
 			muxZ = 3'b101;
 			en1 = 1;
+			//en4 = 1;
+			estadosig = oper6;
+			end
 
+		oper6:
+			begin
 			en4 = 1;
 			estadosig = result;
 			end
@@ -136,5 +142,11 @@ begin
 end
 
 endmodule
+
+
+
+
+
+
 
 

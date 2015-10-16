@@ -20,9 +20,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module muxpb5000(
-	input wire [2:0] controlS,
-	input wire [1:0] controlC,controlZ,
-	input wire [`N-1:0] fk,fk1,fk2,yk,Uk, 
+	input wire [2:0] controlS,controlZ,
+	input wire [1:0] controlC,
+	input wire [`N-1:0] fk,fk1,fk2,yk,Uk,acum1,acum2,acum3, 
 	output wire [`N-1:0] muxS,muxC,muxZ         
     );
 	 
@@ -35,21 +35,24 @@ localparam [`N-1:0]
 		  bdos={{s{1'b0}},16'sd1362},
 		  cero={{s{1'b0}},16'sd0};
 		  
-assign muxS = 		 (controlS==0) ?   cero : 
-                   (controlS==1) ?   auno : 
-						 (controlS==2) ?   ados : 
-						 (controlS==3) ?   bcero : 
-						 (controlS==4) ?   buno: 
-						 (controlS==5) ?   bdos :						 
+assign muxS = 		 (controlS == 3'b000) ?   cero : 
+                   (controlS == 3'b001) ?   auno : 
+						 (controlS == 3'b010) ?   ados : 
+						 (controlS == 3'b011) ?   bcero : 
+						 (controlS == 3'b100) ?   buno: 
+						 (controlS == 3'b101) ?   bdos :						 
                       cero ;
-assign muxC = 		 (controlC==0) ?   cero : 
-                   (controlC==1) ?   fk1 : 
-						 (controlC==2) ?   fk2  : 
-						 (controlC==3) ?   fk : 						 
+assign muxC = 		 (controlC == 2'b00) ?   cero : 
+                   (controlC == 2'b01) ?   fk1 : 
+						 (controlC == 2'b10) ?   fk2  : 
+						 (controlC == 2'b11) ?   fk : 						 
                       cero ;
-assign muxZ = 		 (controlZ==0) ?   cero : 
-                   (controlZ==1) ?   Uk : 
-						 (controlZ==2) ?   yk : 						 
+assign muxZ = 		 (controlZ == 3'b000) ?   cero : 
+                   (controlZ == 3'b001) ?   Uk : 
+						 (controlZ == 3'b010) ?   yk : 
+						 (controlZ == 3'b011) ?   acum1: 
+						 (controlZ == 3'b100) ?   acum2: 
+						 (controlZ == 3'b101) ?   acum3:
                       cero ;
 							 
 endmodule

@@ -4,9 +4,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    19:35:54 10/01/2015 
+// Create Date:    16:58:34 10/03/2015 
 // Design Name: 
-// Module Name:    filtropb200 
+// Module Name:    filtronuevopb200 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -20,76 +20,104 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module filtropa20(
-	input wire [`N-1:0] UK,
-	input wire clk,reset,en1,en2,en3,en4,
-	input wire [2:0] muxS,
-	input wire [1:0] muxC, muxZ,
-	output wire [`N-1:0] YK
+	input wire clk,reset,en1,en2,en3,en4,en5,en6,en7,
+	input wire [2:0] selmuxS,selmuxZ,
+	input wire [1:0] selmuxC,
+	input wire [`N-1:0] uk,
+	output wire [`N-1:0] yk
     );
 
-wire [`N-1:0] dato1,dato2,dato3,resul,aux_fk,aux_fk1,aux_fk2;
-wire [`N-1:0]  aux_yk;
+wire [`N-1:0] fk,fk1,fk2,acum,dato1,dato2,dato3,resarit,a1,a2,a3;
 
 // Banco de MUX
-muxpa20 banco_mux (
-    .controlS(muxS), 
-    .controlC(muxC), 
-    .controlZ(muxZ), 
-    .fk(aux_fk), 
-    .fk1(aux_fk1), 
-    .fk2(aux_fk2), 
-    .yk(aux_yk), 
-    .Uk(UK), 
+muxpa20 mux1 (
+    .controlS(selmuxS), 
+    .controlC(selmuxC), 
+    .controlZ(selmuxZ), 
+    .fk(fk), 
+    .fk1(fk1), 
+    .fk2(fk2), 
+    .yk(acum), 
+    .Uk(uk), 
+	 .acum1(a1), 
+    .acum2(a2), 
+    .acum3(a3), 
     .muxS(dato1), 
     .muxC(dato2), 
     .muxZ(dato3)
     );
 
-// Registro Y(K)
-registro salida (
+// Y(k)
+registro YKpa20 (
     .clk(clk), 
     .reset(reset), 
     .enable(en1), 
-    .D(resul), 
-    .Q(aux_yk)
+    .D(resarit), 
+    .Q(acum)
     );
-	 
-// Registro F(K)
-registro FK (
+
+// F(k)
+registro FKpa20 (
     .clk(clk), 
     .reset(reset), 
     .enable(en2), 
-    .D(resul), 
-    .Q(aux_fk)
+    .D(resarit), 
+    .Q(fk)
     );
-	 
-// Registro F(K-1)
-registro FK_1 (
+
+// F(k-1)
+registro FK1pa20 (
     .clk(clk), 
     .reset(reset), 
     .enable(en3), 
-    .D(aux_fk), 
-    .Q(aux_fk1)
+    .D(fk), 
+    .Q(fk1)
     );
-	 
-// Registro F(K-2)
-registro FK_2 (
+
+// F(k-2)
+registro FK2pa20 (
     .clk(clk), 
     .reset(reset), 
     .enable(en4), 
-    .D(aux_fk1), 
-    .Q(aux_fk2)
+    .D(fk1), 
+    .Q(fk2)
     );
-	 
+
+// Acumulador 1
+registro acum1pa20 (
+    .clk(clk), 
+    .reset(reset), 
+    .enable(en5), 
+    .D(resarit), 
+    .Q(a1)
+    );
+
+// Acumulador 2
+registro acum2pa20 (
+    .clk(clk), 
+    .reset(reset), 
+    .enable(en6), 
+    .D(resarit), 
+    .Q(a2)
+    );
+
+// Acumulador 3
+registro acum3pa20 (
+    .clk(clk), 
+    .reset(reset), 
+    .enable(en7), 
+    .D(resarit), 
+    .Q(a3)
+    );
+
 // Unidad Aritmetica
-unidadaritmetica aritmetica (
+unidadaritmetica aritmeticapa20 (
     .dato1(dato1), 
     .dato2(dato2), 
     .dato3(dato3), 
-    .resultado(resul)
+    .resultado(resarit)
     );
-	 
 
-assign YK = aux_yk;
+assign yk = acum;
 
 endmodule
