@@ -28,12 +28,12 @@ module muxpb200(
 	 
 parameter s = `N-(`F+2);
 localparam [`N-1:0]
-		  auno={{s{1'b0}},16'sd32112},
-		  ados={{s{1'b1}},-16'sd15736},
-		  bcero={{s{1'b0}},16'sd3},
-		  buno={{s{1'b0}},16'sd6},
-		  bdos={{s{1'b0}},16'sd3},
-		  cero={{s{1'b0}},16'sd0};
+		  auno={{s{1'b0}},17'b01111101011100001},
+		  ados={{s{1'b1}},17'b11000010100001111},
+		  bcero={{s{1'b0}},17'b00000000000000110},
+		  buno={{s{1'b0}},17'b00000000000001101},
+		  bdos={{s{1'b0}},17'b00000000000000110},
+		  cero={{s{1'b0}},17'b00000000000000000};
 		  
 assign muxS = 		 (controlS == 3'b000) ?   cero : 
                    (controlS == 3'b001) ?   auno : 

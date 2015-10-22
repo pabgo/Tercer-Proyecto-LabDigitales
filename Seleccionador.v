@@ -20,14 +20,14 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module Seleccionador(
-	input wire [`N-1:0] yk1,yk2,yk3,
+	input wire signed [`N-1:0] yk1,yk2,yk3,
 	input wire sw1,sw2,sw3,
-	output wire [`N-1:0] result
+	output wire signed [`N-1:0] result
     );
 
 wire [`N-1:0] data1,data2,data3;
-wire [31:0]auxi;
-assign auxi = 32'h00000000;
+wire [32:0]auxi;
+assign auxi = 33'h000000000;
 
 assign data1 = (sw1 == 1'b0) ? auxi[`N-1:0] :
 					 yk1;
@@ -37,5 +37,5 @@ assign data3 = (sw3 == 1'b0) ? auxi[`N-1:0] :
 					 yk3;
 					 
 assign result = data1+data2+data3;					 
-					
+		
 endmodule

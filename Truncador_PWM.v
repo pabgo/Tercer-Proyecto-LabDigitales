@@ -21,12 +21,11 @@
 module Truncador_PWM(
 input wire [27:0]Dato_In,
 input wire CS,
-output reg [10:0]Dato_Out = 0,
-output reg [11:0] Basura = 0
+output reg [10:0]Dato_Out = 0
     );
 
 
-always@(posedge CS)
+always@(negedge CS)
 begin
 if(Dato_In[26:15]!= 12'b000000000000 && Dato_In[27]==0 )
 	Dato_Out = 11'b11111111111;
@@ -35,4 +34,5 @@ else if(Dato_In[26:15]!= 12'b111111111111 && Dato_In[27]==1)
 else
 	Dato_Out = {~{Dato_In[14]},Dato_In[13:4]};
 end
+
 endmodule

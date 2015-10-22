@@ -110,11 +110,13 @@ registro acum3pa5k (
     .Q(a3)
     );
 
-// Unidad Aritmetica
-unidadaritmetica aritmeticapa5k (
+// Instantiate the module
+unidadaritmetica aritpa5k (
     .dato1(dato1), 
     .dato2(dato2), 
     .dato3(dato3), 
+    .clk(clk), 
+    .reset(reset), 
     .resultado(resarit)
     );
 

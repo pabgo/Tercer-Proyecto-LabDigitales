@@ -110,11 +110,13 @@ registro acum3pa200 (
     .Q(a3)
     );
 
-// Unidad Aritmetica
-unidadaritmetica aritmeticapa200 (
+// Instantiate the module
+unidadaritmetica aritpa200 (
     .dato1(dato1), 
     .dato2(dato2), 
     .dato3(dato3), 
+    .clk(clk), 
+    .reset(reset), 
     .resultado(resarit)
     );
 
